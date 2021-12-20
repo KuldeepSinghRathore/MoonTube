@@ -1,0 +1,98 @@
+.nav{
+    padding:  10px 2%;
+    justify-content: space-between;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+.nav-right .img{
+ width: 25px;
+ margin-right: 25px;
+}
+.nav-right  .user-icon{
+    width: 35px;
+
+    border-radius: 50%;
+    margin-right: 0;
+
+}
+
+.nav-left .menu-icon{
+
+    width: 22px;
+    margin-right: 20px;
+}
+
+.nav-left .logo{
+    width: 120px;
+}
+
+/* cam nbe be removed */
+.menu-bars {
+  margin-left: 2rem;
+  font-size: 2rem;
+  background: none;
+}
+
+.nav-menu {
+  background-color: #fff;
+  width: 250px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: -100%;
+  transition: 850ms;
+  ;
+}
+
+.nav-menu.active {
+  left: 0;
+  transition: 350ms;
+}
+
+.nav-text {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 8px 0px 8px 16px;
+  list-style: none;
+  height: 60px;
+}
+
+.nav-text a {
+  text-decoration: none;
+  color: #060b26;
+  font-size: 18px;
+  width: 95%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-radius: 4px;
+}
+
+.nav-text a:hover {
+  background-color: #ED3833;
+  color: #fff;
+}
+
+/*  */
+.nav-text a svg{
+    color: #ED3833!important;
+}
+.nav-text a:hover svg{
+    color: #fff !important;
+}
+.nav-menu-items {
+  width: 100%;
+  margin-top: 22%;
+}
+
+
+.title {
+  margin-left: 16px;
+}
