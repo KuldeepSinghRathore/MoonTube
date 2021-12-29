@@ -14,6 +14,7 @@ import upload from "images/upload.png"
 import more from "images/more.png"
 import notification from "images/notification.png"
 import jack from "images/Jack.png"
+import search from "images/search.png"
 import "./Navbar.css"
 // import { SidebarData } from "./SidebarData"
 const Navbar = () => {
@@ -42,7 +43,12 @@ const Navbar = () => {
             )}
             <img src={logo} alt="logo" className="logo" />
           </div>
-          <div className="nav-middle"></div>
+          <div className="nav-middle flex-div">
+            <div className="search-box flex-div">
+              <input type="text" placeholder="Search" />
+              <img src={search} />
+            </div>
+          </div>
           <div className=" nav-right flex-div">
             <img src={upload} alt="upload" className="img" />
             <img src={more} alt="more" className="img" />

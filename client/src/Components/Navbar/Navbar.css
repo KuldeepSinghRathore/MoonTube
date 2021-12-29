@@ -7,29 +7,47 @@
     top: 0;
     z-index: 10;
 }
+/********************** Navright*** */
 .nav-right .img{
- width: 25px;
- margin-right: 25px;
+  width: 25px;
+  margin-right: 25px;
 }
 .nav-right  .user-icon{
-    width: 35px;
-
-    border-radius: 50%;
-    margin-right: 0;
-
+  width: 35px;
+  
+  border-radius: 50%;
+  margin-right: 0;
+  
 }
 
+/********************** Navleft*** */
 .nav-left .menu-icon{
-
+  
     width: 22px;
     margin-right: 20px;
-}
-
-.nav-left .logo{
+  }
+  
+  .nav-left .logo{
     width: 120px;
-}
-
-/* cam nbe be removed */
+  }
+  /********************** NavMiddle*** */
+  .nav-middle .search-box{
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    border-radius: 25px;
+  }
+  .nav-middle .search-box input{
+    width: 400px;
+  border: 0;
+    outline: 0;
+   
+    background: transparent;
+  }
+  .nav-middle .search-box img{
+    width: 15px;
+  }
+  /* cam nbe be removed */
+/************************************* SideBar*****/
 .menu-bars {
   margin-left: 2rem;
   font-size: 2rem;
@@ -90,9 +108,26 @@
 .nav-menu-items {
   width: 100%;
   margin-top: 22%;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  height: 100vh;
 }
 
-
+@media only screen and (min-width: 830px) {
+ .nav-menu-items{
+  width: 25%;
+    margin-top: 56px;
+    box-shadow: 0 0 10px rgb(0 0 0 / 20%);
+    position: fixed;
+    /* top: 0; */
+    left: 0;
+    height: 100vh;
+}
+}
 .title {
   margin-left: 16px;
 }
+
+
+
+
+/**********************************SideBar End */
