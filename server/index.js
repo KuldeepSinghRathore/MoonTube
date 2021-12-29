@@ -5,15 +5,19 @@ const morgan = require("morgan")
 const cors = require("cors")
 const { notFound } = require("./middlewares/notFound")
 const { errorHandler } = require("./middlewares/errorHandler")
+const { connectDB } = require("./database/ConnectDb")
 
 // middleware
 
 dotenv.config()
 app.use(express.json())
-app.use(morgan("common"))
+app.use(morgan("dev"))
 app.use(cors())
 
 const PORT = process.env.PORT || 5000
+// DB Connection
+connectDB()
+
 app.get("/", (req, res) => {
   res.send("Hello World")
 })
