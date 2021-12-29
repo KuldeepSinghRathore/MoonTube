@@ -166,3 +166,4 @@ const videoData = [
     views: "3,414",
   },
 ]
+module.exports = { videoData }
