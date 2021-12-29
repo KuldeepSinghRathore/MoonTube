@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const VideoSchema = new Schema(
   {
-    videoId: {
+    youtubeId: {
       type: String,
       required: true,
     },
