@@ -11,6 +11,8 @@ const { connectDB } = require("./database/ConnectDb")
 const videoRouter = require("./routes/videos.route")
 const userRouter = require("./routes/auth.route")
 const historyRouter = require("./routes/history.route")
+const likedRouter = require("./routes/liked.route")
+const savedRouter = require("./routes/saved.route")
 const { saveVideoDataToDb } = require("./controller/video.controller")
 const { videoData } = require("./database/data")
 
@@ -30,6 +32,8 @@ connectDB()
 app.use("/api/videos", videoRouter)
 app.use("/user", userRouter)
 app.use("/api/history", historyRouter)
+app.use("/api/liked", likedRouter)
+app.use("/api/saved", savedRouter)
 
 app.get("/", (req, res) => {
   res.send("Hello World")
