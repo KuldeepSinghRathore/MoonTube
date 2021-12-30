@@ -9,6 +9,7 @@ const { errorHandler } = require("./middlewares/errorHandler")
 const { connectDB } = require("./database/ConnectDb")
 //imported  routes
 const videoRouter = require("./routes/videos.route")
+const userRouter = require("./routes/auth.route")
 const { saveVideoDataToDb } = require("./controller/video.controller")
 const { videoData } = require("./database/data")
 
@@ -26,6 +27,7 @@ connectDB()
 // saveVideoDataToDb(videoData)
 // calling routes
 app.use("/api/videos", videoRouter)
+app.use("/user", userRouter)
 
 app.get("/", (req, res) => {
   res.send("Hello World")
