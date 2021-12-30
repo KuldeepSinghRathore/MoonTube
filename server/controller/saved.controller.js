@@ -80,9 +80,21 @@ const deleteFromSavedUsingId = async (req, res) => {
         },
       })
     }
-    saved.savedItems = saved.savedItems.filter(
-      (item) => item.video.toString() !== videoId
+    // saved.savedItems = saved.savedItems.filter(
+    //   (item) => item.video.toString() !== videoId
+    // )
+    const findIndex = saved.savedItems.findIndex(
+      (item) => item.video.toString() === videoId
     )
+    if (findIndex === -1) {
+      return res.status(404).json({
+        success: false,
+        message: "No video found in saved",
+        saved,
+      })
+    }
+    // saved.savedItems.splice(findIndex, 1)
+    saved.savedItems[findIndex].remove()
     await saved.save()
     return res.status(200).json({
       success: true,

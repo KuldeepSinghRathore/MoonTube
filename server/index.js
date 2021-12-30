@@ -13,6 +13,7 @@ const userRouter = require("./routes/auth.route")
 const historyRouter = require("./routes/history.route")
 const likedRouter = require("./routes/liked.route")
 const savedRouter = require("./routes/saved.route")
+const playlistRouter = require("./routes/playlist.route")
 const { saveVideoDataToDb } = require("./controller/video.controller")
 const { videoData } = require("./database/data")
 
@@ -34,6 +35,7 @@ app.use("/user", userRouter)
 app.use("/api/history", historyRouter)
 app.use("/api/liked", likedRouter)
 app.use("/api/saved", savedRouter)
+app.use("/api/playlist", playlistRouter)
 
 app.get("/", (req, res) => {
   res.send("Hello World")
