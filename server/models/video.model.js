@@ -5,19 +5,19 @@ const VideoSchema = new Schema(
   {
     youtubeId: {
       type: String,
-      required: true,
+      required: "youtube id is required",
     },
     title: {
       type: String,
-      required: true,
+      required: "title is required",
     },
     creator: {
       type: String,
-      required: true,
+      required: "creator is required",
     },
     views: {
       type: String,
-      required: true,
+      required: "views is required",
     },
   },
   { timestamps: true }

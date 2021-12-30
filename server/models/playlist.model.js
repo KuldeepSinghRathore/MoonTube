@@ -7,15 +7,20 @@ const PlaylistSchema = new Schema(
     userwithId: {
       type: ObjectId,
       ref: "User",
+      required: [true, "user id is required"],
     },
 
     playlistName: {
       type: String,
-      required: true,
+      required: "please enter a playlist name",
     },
     playlistItems: [
       {
-        video: { type: ObjectId, ref: "Video" },
+        video: {
+          type: ObjectId,
+          ref: "Video",
+          required: [true, "Video id is required"],
+        },
       },
     ],
   },
