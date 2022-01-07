@@ -2,8 +2,10 @@ const { Playlist } = require("../models/playlist.model")
 
 const addToPlaylistUsingId = async (req, res) => {
   try {
+    // console.log(req.body, "req.body")
     const { userId, videoId } = req.params
     const { playlistName } = req.body
+    // console.log(playlistName, "playlistName")
     let playlist = await Playlist.find({ userwithId: userId })
     // console.log(playlist.length, "playlist l8")
 
@@ -72,7 +74,9 @@ const addToPlaylistUsingId = async (req, res) => {
 const getPlaylistUsingId = async (req, res) => {
   try {
     const { userId } = req.params
-    const playlist = await Playlist.find({ userwithId: userId })
+    const playlist = await Playlist.find({ userwithId: userId }).populate(
+      "playlistItems.video"
+    )
     // console.log(playlist, "get playlist")
     if (!playlist.length > 0) {
       return res.status(404).json({
@@ -100,6 +104,7 @@ const getPlaylistUsingId = async (req, res) => {
 const deletePlaylistUsingId = async (req, res) => {
   try {
     const { userId } = req.params
+
     const playlistName = req.body.playlistName
     const playlist = await Playlist.find({ userwithId: userId })
     // console.log(playlist, "playlist", playlistName, "playlistName")
@@ -145,7 +150,7 @@ const deleteVideoFromPlaylistUsingId = async (req, res) => {
       playlistName: playlistName,
     })
 
-    if (!playlist.playlistName) {
+    if (!playlist?.playlistName) {
       return res.status(404).json({
         success: false,
         message: "User Have No Playlist Or Video Not Found",

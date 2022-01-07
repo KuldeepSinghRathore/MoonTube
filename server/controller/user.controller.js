@@ -15,7 +15,7 @@ const loginUser = async (req, res) => {
 
     // finding user by email
     const userFromDb = await findUserByEmail(userFromBody.email)
-    console.log(userFromDb, "userFromDb")
+    // console.log(userFromDb, "userFromDb")
     if (userFromBody === null) {
       return res.status(401).json({
         success: false,
