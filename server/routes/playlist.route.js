@@ -7,14 +7,10 @@ const {
 
 const router = require("express").Router()
 
-router.route("/:userId/:videoId").post(addToPlaylistUsingId)
-router.route("/:userId").get(getPlaylistUsingId)
 router
-  .route("/:userId/:playlistId")
-  .delete(deletePlaylistUsingId)
+  .route("/:userId/:videoId")
+  .post(addToPlaylistUsingId)
   .delete(deleteVideoFromPlaylistUsingId)
-router
-  .route("/:userId/:playlistId/:videoId")
-  .delete(deleteVideoFromPlaylistUsingId)
+router.route("/:userId").get(getPlaylistUsingId).delete(deletePlaylistUsingId)
 
 module.exports = router

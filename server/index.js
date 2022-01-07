@@ -19,10 +19,10 @@ const { videoData } = require("./database/data")
 
 //using/calling  middlewares
 
+app.use(cors())
 dotenv.config()
 app.use(express.json())
 app.use(morgan("dev"))
-app.use(cors())
 
 const PORT = process.env.PORT || 5000
 // DB Connection

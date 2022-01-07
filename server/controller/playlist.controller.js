@@ -24,9 +24,7 @@ const addToPlaylistUsingId = async (req, res) => {
         playlist: newPlaylist,
       })
     }
-    // const isAlreadyInPlaylist = await Playlist.where("playlistName").equals(
-    //   playlistName
-    // )
+
     const findPlaylist = playlist.find(
       (item) => item.playlistName === playlistName
     )
@@ -74,9 +72,8 @@ const addToPlaylistUsingId = async (req, res) => {
 const getPlaylistUsingId = async (req, res) => {
   try {
     const { userId } = req.params
-    const playlist = await Playlist.find({ userwithId: userId }).populate(
-      "playlistItems.video"
-    )
+    const playlist = await Playlist.find({ userwithId: userId })
+    // console.log(playlist, "get playlist")
     if (!playlist.length > 0) {
       return res.status(404).json({
         success: false,
@@ -102,8 +99,10 @@ const getPlaylistUsingId = async (req, res) => {
 // deletePlaylistUsingId
 const deletePlaylistUsingId = async (req, res) => {
   try {
-    const { userId, playlistId } = req.params
+    const { userId } = req.params
+    const playlistName = req.body.playlistName
     const playlist = await Playlist.find({ userwithId: userId })
+    // console.log(playlist, "playlist", playlistName, "playlistName")
     if (!playlist) {
       return res.status(404).json({
         success: false,
@@ -112,12 +111,12 @@ const deletePlaylistUsingId = async (req, res) => {
       })
     }
     const findPlaylistIndex = playlist.findIndex(
-      (item) => item._id.toString() === playlistId
+      (item) => item.playlistName === playlistName
     )
     if (findPlaylistIndex === -1) {
       return res.status(404).json({
         success: false,
-        message: "No playlist found Using this PlaylistId",
+        message: "No playlist found Using this PlaylistName",
         playlist: [],
       })
     }
@@ -139,34 +138,35 @@ const deletePlaylistUsingId = async (req, res) => {
 
 const deleteVideoFromPlaylistUsingId = async (req, res) => {
   try {
-    const { userId, playlistId, videoId } = req.params
-    const playlist = await Playlist.where("userwithId")
-      .equals(userId)
-      .where("_id")
-      .equals(playlistId)
-      .where("playlistItems.video")
-      .equals(videoId)
+    const { userId, videoId } = req.params
+    const playlistName = req.body.playlistName
+    const playlist = await Playlist.findOne({
+      userwithId: userId,
+      playlistName: playlistName,
+    })
 
-    if (!playlist > 0) {
+    if (!playlist.playlistName) {
       return res.status(404).json({
         success: false,
         message: "User Have No Playlist Or Video Not Found",
       })
     }
+    let newPl = {
+      userwithId: userId,
+      playlistName: playlistName,
+      playlistItems: playlist.playlistItems.filter(
+        (item) => item.video._id.toString() !== videoId.toString()
+      ),
+    }
+    newPl = Object.assign(playlist, newPl)
 
-    console.log(playlist, "playlist")
-    const [{ playlistItems }] = playlist
-    console.log(playlistItems, "playlistItems")
+    await newPl.save()
+    // console.log(playlist, "playlist")
 
-    const findVideoIndex = playlistItems.findIndex(
-      (item) => item.video.toString() === videoId
-    )
-    playlist[0].playlistItems[findVideoIndex].remove()
-    await playlist[0].save()
     return res.status(200).json({
       success: true,
       message: "Video Deleted From Playlist",
-      playlist,
+      playlist: newPl,
     })
   } catch (error) {
     console.log(error.stack)

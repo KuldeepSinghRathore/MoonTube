@@ -15,7 +15,7 @@ const loginUser = async (req, res) => {
 
     // finding user by email
     const userFromDb = await findUserByEmail(userFromBody.email)
-
+    console.log(userFromDb, "userFromDb")
     if (userFromBody === null) {
       return res.status(401).json({
         success: false,
@@ -36,7 +36,12 @@ const loginUser = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Login Successful",
-      userId: userFromDb.id,
+      userData: {
+        userId: userFromDb.id,
+        firstName: userFromDb.firstName,
+        lastName: userFromDb.lastName,
+        email: userFromDb.email,
+      },
       //   token,
     })
   } catch (error) {
@@ -83,7 +88,13 @@ const signupUser = async (req, res) => {
 
         res.json({
           success: true,
-          userId: saveNewUser._id,
+          message: "User Created Successfully",
+          userData: {
+            userId: saveNewUser._id,
+            firstName: saveNewUser.firstName,
+            lastName: saveNewUser.lastName,
+            email: saveNewUser.email,
+          },
         })
       }
     })
