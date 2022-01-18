@@ -103,11 +103,12 @@ const getPlaylistUsingId = async (req, res) => {
 // deletePlaylistUsingId
 const deletePlaylistUsingId = async (req, res) => {
   try {
+    console.log(req.body, "req.body")
     const { userId } = req.params
 
-    const playlistName = req.body.playlistName
+    const { playlistName } = req.body
     const playlist = await Playlist.find({ userwithId: userId })
-    // console.log(playlist, "playlist", playlistName, "playlistName")
+    console.log(playlist, "playlist", playlistName, "playlistName")
     if (!playlist) {
       return res.status(404).json({
         success: false,
