@@ -39,7 +39,8 @@ app.use("/api/saved", verifyAuth, savedRouter)
 app.use("/api/playlist", verifyAuth, playlistRouter)
 
 app.get("/", (req, res) => {
-  res.send("Hello World")
+  res.send(`Thanks for visiting go checkout the
+    <a href="https://github.com/KuldeepSinghRathore"> https://github.com/KuldeepSinghRathore</a>`)
 })
 
 // 404 Handler
