@@ -6,11 +6,8 @@ const {
 
 const router = require("express").Router()
 
-router
-  .route("/:userId/:videoId")
-  .post(addToSavedUsingId)
-  .delete(deleteFromSavedUsingId)
+router.route("/:videoId").post(addToSavedUsingId).delete(deleteFromSavedUsingId)
 
-router.route("/:userId").get(getSavedUsingId)
+router.route("/").get(getSavedUsingId)
 
 module.exports = router

@@ -3,7 +3,8 @@ const { Liked } = require("../models/liked.model")
 // Add To Liked
 const addToLikedUsingId = async (req, res) => {
   try {
-    const { userId, videoId } = req.params
+    const { userId } = req
+    const { videoId } = req.params
     const liked = await Liked.findById(userId)
     if (!liked) {
       const newLiked = new Liked({
@@ -41,7 +42,7 @@ const addToLikedUsingId = async (req, res) => {
 // get Liked
 const getLikedUsingId = async (req, res) => {
   try {
-    const { userId } = req.params
+    const { userId } = req
     const liked = await Liked.findById(userId).populate("likedItems.video")
     if (!liked) {
       return res.status(404).json({
@@ -70,7 +71,8 @@ const getLikedUsingId = async (req, res) => {
 // delete from Liked
 const deleteVideoFromLikedUsingId = async (req, res) => {
   try {
-    const { userId, videoId } = req.params
+    const { userId } = req
+    const { videoId } = req.params
     const liked = await Liked.findById(userId)
     if (!liked) {
       return res.status(404).json({

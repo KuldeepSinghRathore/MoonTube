@@ -2,7 +2,8 @@ const { History } = require("../models/history.model")
 // Add History
 const addToHistoryUsingId = async (req, res) => {
   try {
-    const { userId, videoId } = req.params
+    const { userId } = req
+    const { videoId } = req.params
     const history = await History.findById(userId)
     if (!history) {
       const newHistory = new History({
@@ -24,7 +25,7 @@ const addToHistoryUsingId = async (req, res) => {
     await history.save()
     return res
       .status(200)
-      .json({ success: true, message: "Video added to history", history })
+      .json({ success: true, message: "Video added to history" })
   } catch (error) {
     console.log(error.stack)
     return res.status(500).json({
@@ -38,7 +39,7 @@ const addToHistoryUsingId = async (req, res) => {
 // get History
 const getHistoryUsingId = async (req, res) => {
   try {
-    const { userId } = req.params
+    const { userId } = req
     const history = await History.findById(userId).populate(
       "historyItems.video"
     )
@@ -69,7 +70,8 @@ const getHistoryUsingId = async (req, res) => {
 // delete History
 const deleteVideoFromHistoryUsingId = async (req, res) => {
   try {
-    const { userId, videoId } = req.params
+    const { userId } = req
+    const { videoId } = req.params
     const history = await History.findById(userId)
 
     if (!history) {
@@ -88,7 +90,6 @@ const deleteVideoFromHistoryUsingId = async (req, res) => {
       return res.status(404).json({
         success: false,
         message: "No video found of this id",
-        history,
       })
     }
     // history.historyItems.splice(findIndex,1)
@@ -97,7 +98,6 @@ const deleteVideoFromHistoryUsingId = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Video deleted from history",
-      history,
     })
   } catch (error) {
     console.log(error.stack)

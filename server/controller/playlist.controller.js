@@ -2,12 +2,10 @@ const { Playlist } = require("../models/playlist.model")
 
 const addToPlaylistUsingId = async (req, res) => {
   try {
-    // console.log(req.body, "req.body")
-    const { userId, videoId } = req.params
-    const { playlistName } = req.body
-    // console.log(playlistName, "playlistName")
+    const { userId } = req
+    const { videoId } = req.params
+    const { playlistName } = req.body.data
     let playlist = await Playlist.find({ userwithId: userId })
-    // console.log(playlist.length, "playlist l8")
 
     if (!playlist.length > 0) {
       const newPlaylist = new Playlist({
@@ -30,8 +28,7 @@ const addToPlaylistUsingId = async (req, res) => {
     const findPlaylist = playlist.find(
       (item) => item.playlistName === playlistName
     )
-    // console.log(isAlreadyInPlaylist, "isAlreadyInPlaylist")
-    // console.log(findPlaylist, "findPlaylist")
+
     if (!findPlaylist) {
       const newPlaylist = new Playlist({
         userwithId: userId,
@@ -73,11 +70,10 @@ const addToPlaylistUsingId = async (req, res) => {
 // getPlaylistUsingId
 const getPlaylistUsingId = async (req, res) => {
   try {
-    const { userId } = req.params
+    const { userId } = req
     const playlist = await Playlist.find({ userwithId: userId }).populate(
       "playlistItems.video"
     )
-    // console.log(playlist, "get playlist")
     if (!playlist.length > 0) {
       return res.status(404).json({
         success: false,
@@ -103,12 +99,10 @@ const getPlaylistUsingId = async (req, res) => {
 // deletePlaylistUsingId
 const deletePlaylistUsingId = async (req, res) => {
   try {
-    console.log(req.body, "req.body")
-    const { userId } = req.params
+    const { userId } = req
 
     const { playlistName } = req.body
     const playlist = await Playlist.find({ userwithId: userId })
-    console.log(playlist, "playlist", playlistName, "playlistName")
     if (!playlist) {
       return res.status(404).json({
         success: false,
@@ -144,7 +138,8 @@ const deletePlaylistUsingId = async (req, res) => {
 
 const deleteVideoFromPlaylistUsingId = async (req, res) => {
   try {
-    const { userId, videoId } = req.params
+    const { userId } = req
+    const { videoId } = req.params
     const playlistName = req.body.playlistName
     const playlist = await Playlist.findOne({
       userwithId: userId,
@@ -167,7 +162,6 @@ const deleteVideoFromPlaylistUsingId = async (req, res) => {
     newPl = Object.assign(playlist, newPl)
 
     await newPl.save()
-    // console.log(playlist, "playlist")
 
     return res.status(200).json({
       success: true,

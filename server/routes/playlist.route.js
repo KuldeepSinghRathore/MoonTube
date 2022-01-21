@@ -8,9 +8,9 @@ const {
 const router = require("express").Router()
 
 router
-  .route("/:userId/:videoId")
+  .route("/:videoId")
   .post(addToPlaylistUsingId)
   .delete(deleteVideoFromPlaylistUsingId)
-router.route("/:userId").get(getPlaylistUsingId).delete(deletePlaylistUsingId)
+router.route("/").get(getPlaylistUsingId).delete(deletePlaylistUsingId)
 
 module.exports = router

@@ -16,6 +16,7 @@ const savedRouter = require("./routes/saved.route")
 const playlistRouter = require("./routes/playlist.route")
 const { saveVideoDataToDb } = require("./controller/video.controller")
 const { videoData } = require("./database/data")
+const verifyAuth = require("./middlewares/verifyAuth")
 
 //using/calling  middlewares
 
@@ -32,10 +33,10 @@ connectDB()
 // calling routes
 app.use("/api/videos", videoRouter)
 app.use("/user", userRouter)
-app.use("/api/history", historyRouter)
-app.use("/api/liked", likedRouter)
-app.use("/api/saved", savedRouter)
-app.use("/api/playlist", playlistRouter)
+app.use("/api/history", verifyAuth, historyRouter)
+app.use("/api/liked", verifyAuth, likedRouter)
+app.use("/api/saved", verifyAuth, savedRouter)
+app.use("/api/playlist", verifyAuth, playlistRouter)
 
 app.get("/", (req, res) => {
   res.send("Hello World")

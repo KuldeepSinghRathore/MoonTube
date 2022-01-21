@@ -38,6 +38,7 @@ const addNewVideoToDb = async (req, res) => {
   }
 }
 const getVideoByParam = async (req, res, next, id) => {
+  console.log(id)
   try {
     const video = await Video.findById(id)
     if (!video) {

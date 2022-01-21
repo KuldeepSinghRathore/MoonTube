@@ -7,9 +7,9 @@ const {
 const router = require("express").Router()
 
 router
-  .route("/:userId/:videoId")
+  .route("/:videoId")
   .post(addToHistoryUsingId)
   .delete(deleteVideoFromHistoryUsingId)
-router.route("/:userId").get(getHistoryUsingId)
+router.route("/").get(getHistoryUsingId)
 
 module.exports = router

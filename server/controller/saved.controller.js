@@ -3,7 +3,8 @@ const { Saved } = require("../models/saved.model")
 // Add to Saved
 const addToSavedUsingId = async (req, res) => {
   try {
-    const { userId, videoId } = req.params
+    const { userId } = req
+    const { videoId } = req.params
     const saved = await Saved.findById(userId)
     if (!saved) {
       const newSaved = new Saved({
@@ -40,7 +41,7 @@ const addToSavedUsingId = async (req, res) => {
 // Get Saved Using Id
 const getSavedUsingId = async (req, res) => {
   try {
-    const { userId } = req.params
+    const { userId } = req
     const saved = await Saved.findById(userId).populate("savedItems.video")
     if (!saved) {
       return res.status(404).json({
@@ -69,7 +70,8 @@ const getSavedUsingId = async (req, res) => {
 // Delete from Saved
 const deleteFromSavedUsingId = async (req, res) => {
   try {
-    const { userId, videoId } = req.params
+    const { userId } = req
+    const { videoId } = req.params
     const saved = await Saved.findById(userId)
     if (!saved) {
       return res.status(404).json({
