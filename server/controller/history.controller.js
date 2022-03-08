@@ -5,7 +5,7 @@ const addToHistoryUsingId = async (req, res) => {
     const { userId } = req
     const { videoId } = req.params
     const history = await History.findById(userId)
-     
+
     if (!history) {
       const newHistory = new History({
         _id: userId,
@@ -22,8 +22,10 @@ const addToHistoryUsingId = async (req, res) => {
         history: newHistory,
       })
     }
-   
-   history.historyItems=history.historyItems.filter(video=>video.toString()!==videoId).toString()
+
+    history.historyItems = history.historyItems.filter(
+      (i) => i.video.toString() !== videoId.toString()
+    )
     history.historyItems = history.historyItems.concat({ video: videoId })
     await history.save()
     return res
@@ -43,8 +45,10 @@ const addToHistoryUsingId = async (req, res) => {
 const getHistoryUsingId = async (req, res) => {
   try {
     const { userId } = req
-    const history = await History.findById(userId).populate("historyItems.video")
-    
+    const history = await History.findById(userId).populate(
+      "historyItems.video"
+    )
+
     if (!history) {
       return res.status(404).json({
         success: false,
@@ -54,7 +58,7 @@ const getHistoryUsingId = async (req, res) => {
         },
       })
     }
-   const  historyItems = history.historyItems.sort((a,b)=>b.date - a.date)
+    const historyItems = history.historyItems.sort((a, b) => b.date - a.date)
     history.historyItems = historyItems
     return res.status(200).json({
       success: true,
