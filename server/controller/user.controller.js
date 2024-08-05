@@ -1,4 +1,4 @@
-const { User } = require("../Models/user.model")
+const { User } = require("../models/user.model")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const findUserByEmail = async (email) => {
@@ -19,7 +19,7 @@ const loginUser = async (req, res) => {
 
     // finding user by email
     const userFromDb = await findUserByEmail(userFromBody.email)
-    if (userFromBody === null) {
+    if (userFromDb === null) {
       return res.status(401).json({
         success: false,
         message: "No User Found Please SignUp",
@@ -112,7 +112,10 @@ const signupUser = async (req, res) => {
         })
         // saving New user
         const saveNewUser = await newUser.save()
-
+    // creating token
+    const token = jwt.sign({ userId: saveNewUser._id }, process.env.jwtSecret, {
+      expiresIn: "90d",
+    })
         res.json({
           success: true,
           message: "User Created Successfully",
@@ -121,6 +124,7 @@ const signupUser = async (req, res) => {
             firstName: saveNewUser.firstName,
             lastName: saveNewUser.lastName,
             email: saveNewUser.email,
+            token
           },
         })
       }

@@ -102,7 +102,7 @@ const deletePlaylistUsingId = async (req, res) => {
     const { userId } = req
 
     const { playlistName } = req.body
-    const playlist = await Playlist.find({ userwithId: userId })
+    let playlist = await Playlist.find({ userwithId: userId })
     if (!playlist) {
       return res.status(404).json({
         success: false,
@@ -120,8 +120,10 @@ const deletePlaylistUsingId = async (req, res) => {
         playlist: [],
       })
     }
+   
     playlist[findPlaylistIndex].remove()
-    // await playlist.save()
+     
+   
     return res.status(200).json({
       success: true,
       message: "Playlist deleted",
@@ -146,7 +148,7 @@ const deleteVideoFromPlaylistUsingId = async (req, res) => {
       playlistName: playlistName,
     })
 
-    if (!playlist?.playlistName) {
+    if (!playlist.playlistName) {
       return res.status(404).json({
         success: false,
         message: "User Have No Playlist Or Video Not Found",

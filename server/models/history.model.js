@@ -11,7 +11,9 @@ const HistorySchema = new Schema(
     historyItems: [
       {
         video: { type: Schema.Types.ObjectId, ref: "Video" },
+        date:{type:String,default:() => Date.now()}
       },
+      
     ],
   },
   { timestamps: true }
